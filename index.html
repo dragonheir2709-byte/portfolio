@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHELBY STUDIO — Визуал, AI-контент, сайты и продвижение</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        bgWarm: '#EAE5DC',
+                        cardLinen: '#F6F3EC',
+                        cardSand: '#EFECE4',
+                        borderStone: '#DDD6CA',
+                        ink: '#221F1D',
+                        brandIndigo: '#4F46E5',
+                        brandGold: '#D97706',
+                        brandSage: '#4D7C6F',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #EAE5DC;
+            background-image: 
+                radial-gradient(at 8% 12%, rgba(217, 119, 87, 0.13) 0px, transparent 48%),
+                radial-gradient(at 88% 22%, rgba(95, 133, 117, 0.13) 0px, transparent 50%),
+                radial-gradient(at 50% 65%, rgba(212, 163, 115, 0.15) 0px, transparent 55%),
+                radial-gradient(at 15% 88%, rgba(79, 70, 229, 0.08) 0px, transparent 50%);
+            background-attachment: fixed;
+            color: #221F1D;
+            overflow-x: hidden;
+        }
+
+        .bento-card {
+            background: #F6F3EC;
+            border: 1px solid #DDD6CA;
+            box-shadow: 0 8px 26px -6px rgba(45, 38, 30, 0.06);
+            transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .bento-card:hover {
+            background: #F9F7F2;
+            transform: translateY(-4px);
+            border-color: rgba(79, 70, 229, 0.32);
+            box-shadow: 0 20px 38px -12px rgba(45, 38, 30, 0.12);
+        }
+
+        .warm-glass {
+            background: rgba(246, 243, 236, 0.86);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-color: #DDD6CA;
+        }
+
+        /* Вертикальный текст бокового бейджа */
+        .writing-vertical {
+            writing-mode: vertical-rl;
+            transform: rotate(180deg);
+        }
+
+        /* Слайдер До/После */
+        .ba-container {
+            position: relative;
+            overflow: hidden;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: pan-y;
+        }
+
+        .ba-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 50%;
+            overflow: hidden;
+            border-right: 2.5px solid #F6F3EC;
+        }
+
+        .ba-handle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 20;
+            cursor: ew-resize;
+        }
+
+        /* Эффект исходника "До" для наглядной разницы */
+        .raw-photo-filter {
+            filter: saturate(0.55) contrast(0.88) brightness(0.92);
+        }
+
+        /* Эффект обработанного "После" */
+        .pro-photo-filter {
+            filter: saturate(1.12) contrast(1.06) brightness(1.03);
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-brandIndigo selection:text-white relative">
+
+    <!-- Фиксированный стильный боковой бейдж с логотипом и названием (на десктопах) -->
+    <aside class="hidden xl:flex fixed left-5 top-1/2 -translate-y-1/2 z-40 flex-col items-center gap-4 warm-glass border py-5 px-2.5 rounded-full shadow-lg">
+        <a href="#" title="SHELBY STUDIO" class="w-9 h-9 rounded-full bg-gradient-to-tr from-brandIndigo to-indigo-500 flex items-center justify-center shadow-sm hover:scale-105 transition">
+            <!-- Мини-монограмма S с искрой -->
+            <svg class="w-5 h-5" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M23.5 11C21.5 9.2 18.2 9 15.8 10.2C13.4 11.4 13.2 14.5 15.8 15.8L20.5 18C23.5 19.4 23.8 23.2 21 25C18.2 26.8 14.2 26.2 12 24" stroke="#F6F3EC" stroke-width="3" stroke-linecap="round"/>
+                <path d="M27.5 6L28.7 9.3L32 10.5L28.7 11.7L27.5 15L26.3 11.7L23 10.5L26.3 9.3L27.5 6Z" fill="#F59E0B"/>
+            </svg>
+        </a>
+        <div class="w-px h-6 bg-[#D5CEC2]"></div>
+        <span class="writing-vertical text-[11px] font-display font-extrabold tracking-[0.22em] text-zinc-700 uppercase">
+            SHELBY • CREATIVE &amp; MARKETING
+        </span>
+        <div class="w-px h-6 bg-[#D5CEC2]"></div>
+        <a href="https://t.me/shelby_smm" target="_blank" rel="noopener noreferrer" title="Написать в Telegram @shelby_smm" class="w-8 h-8 rounded-full bg-[#E8E2D7] text-brandIndigo hover:bg-brandIndigo hover:text-white flex items-center justify-center transition text-xs">
+            <i class="fa-brands fa-telegram"></i>
+        </a>
+    </aside>
+
+    <!-- Верхняя шапка с авторским логотипом и красивым названием -->
+    <header class="sticky top-0 z-50 warm-glass border-b">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
+            
+            <!-- Авторский логотип + название сбоку -->
+            <a href="#" class="flex items-center gap-3.5 group">
+                <div class="relative w-11 h-11 rounded-2xl bg-zinc-900 flex items-center justify-center shadow-md group-hover:bg-brandIndigo transition-colors">
+                    <svg class="w-7 h-7" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="shelbyGrad" x1="6" y1="6" x2="34" y2="34" gradientUnits="userSpaceOnUse">
+                                <stop offset="0%" stop-color="#F6F3EC"/>
+                                <stop offset="100%" stop-color="#C7D2FE"/>
+                            </linearGradient>
+                        </defs>
+                        <!-- Стилизованная монограмма S -->
+                        <path d="M25.5 13C23.2 10.8 19.2 10.5 16.5 12C13.8 13.5 13.6 17 16.6 18.5L22.2 21C25.6 22.5 26 26.8 22.8 29C19.6 31.2 15 30.4 12.5 27.8" stroke="url(#shelbyGrad)" stroke-width="3.4" stroke-linecap="round"/>
+                        <!-- Золотая искра AI -->
+                        <path d="M30 6.5L31.4 10.1L35 11.5L31.4 12.9L30 16.5L28.6 12.9L25 11.5L28.6 10.1L30 6.5Z" fill="#F59E0B"/>
+                    </svg>
+                </div>
+                <div>
+                    <div class="flex items-center gap-1.5">
+                        <span class="font-display font-extrabold text-xl tracking-tight text-zinc-900">SHELBY</span>
+                        <span class="px-2 py-0.5 text-[10px] font-extrabold uppercase tracking-widest bg-[#E8E2D7] text-brandIndigo rounded-md border border-[#D5CEC2]">STUDIO</span>
+                    </div>
+                    <span class="block text-[11px] font-medium text-zinc-600 tracking-wide">Digital &amp; AI Creator</span>
+                </div>
+            </a>
+
+            <!-- Навигация для ПК -->
+            <nav class="hidden md:flex items-center gap-7 text-sm font-semibold text-zinc-700">
+                <a href="#portfolio" class="hover:text-brandIndigo transition">Мои работы</a>
+                <a href="#retouch" class="hover:text-brandIndigo transition">Нейрофото и ретушь</a>
+                <a href="#pricing" class="hover:text-brandIndigo transition">Стоимость</a>
+                <a href="#contacts" class="hover:text-brandIndigo transition">Контакты</a>
+            </nav>
+
+            <!-- Кнопки справа -->
+            <div class="flex items-center gap-2.5">
+                <a href="https://t.me/shelby_smm" target="_blank" rel="noopener noreferrer" class="bg-zinc-900 hover:bg-brandIndigo text-white text-xs sm:text-sm font-semibold px-4 sm:px-5 py-2.5 rounded-xl transition shadow-sm flex items-center gap-2">
+                    <i class="fa-brands fa-telegram text-base"></i>
+                    <span>Написать в ТГ</span>
+                </a>
+                <button id="mobileMenuBtn" class="md:hidden w-10 h-10 rounded-xl border border-[#D5CEC2] bg-[#F6F3EC] flex items-center justify-center text-zinc-700">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Мобильное меню -->
+        <div id="mobileMenu" class="hidden md:hidden bg-[#F6F3EC] border-b border-[#DDD6CA] px-4 pt-2 pb-5 space-y-2">
+            <a href="#portfolio" class="mobile-nav-link block py-2.5 px-3 rounded-xl hover:bg-[#EAE5DC] font-semibold text-sm text-zinc-800">Мои работы и кейсы</a>
+            <a href="#retouch" class="mobile-nav-link block py-2.5 px-3 rounded-xl hover:bg-[#EAE5DC] font-semibold text-sm text-zinc-800">AI-фотографии и ретушь (До/После)</a>
+            <a href="#pricing" class="mobile-nav-link block py-2.5 px-3 rounded-xl hover:bg-[#EAE5DC] font-semibold text-sm text-zinc-800">Стоимость услуг</a>
+            <a href="#contacts" class="mobile-nav-link block py-2.5 px-3 rounded-xl hover:bg-[#EAE5DC] font-semibold text-sm text-zinc-800">Соцсети и заявка</a>
+        </div>
+    </header>
+
+    <!-- Главный экран (Hero) в стиле Bento -->
+    <section class="pt-8 pb-14 md:pt-14 md:pb-20 px-4 sm:px-6 max-w-6xl mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+            
+            <!-- Левая главная карточка -->
+            <div class="lg:col-span-8 bento-card rounded-3xl p-6 sm:p-10 md:p-12 flex flex-col justify-between relative overflow-hidden">
+                <!-- Декоративное мягкое тёплое свечение -->
+                <div class="absolute -top-24 -right-24 w-80 h-80 rounded-full bg-amber-500/10 blur-3xl pointer-events-none"></div>
+                <div class="absolute -bottom-24 -left-24 w-72 h-72 rounded-full bg-indigo-500/10 blur-3xl pointer-events-none"></div>
+
+                <div class="space-y-6 relative z-10">
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EDE6D6] border border-[#D8CEB8] text-amber-900 text-xs font-bold">
+                        <span class="w-2 h-2 rounded-full bg-amber-600 animate-ping"></span>
+                        Работаю под ключ • Открыт к новым проектам
+                    </div>
+
+                    <h1 class="font-display text-3xl sm:text-4xl md:text-[42px] font-extrabold tracking-tight text-zinc-900 leading-[1.16]">
+                        Привет! Я создаю <span class="text-brandIndigo">продающий визуал</span>, сайты, AI-контент и настраиваю поток клиентов
+                    </h1>
+
+                    <p class="text-zinc-700 text-base sm:text-lg leading-relaxed max-w-2xl">
+                        Без пафоса и сложных терминов. Помогаю бизнесу и экспертам упаковать проект под ключ: от чистой ретуши, нейрофотосессий и залипательных ИИ-роликов до удобного сайта и продвижения в <strong class="text-zinc-900">2ГИС</strong> и <strong class="text-zinc-900">Яндекс Директ</strong>.
+                    </p>
+                </div>
+
+                <div class="pt-8 mt-6 border-t border-[#E2DCD0] flex flex-wrap items-center gap-3.5 relative z-10">
+                    <a href="https://t.me/shelby_smm" target="_blank" rel="noopener noreferrer" class="bg-brandIndigo hover:bg-indigo-700 text-white font-semibold px-6 py-3.5 rounded-2xl transition shadow-md shadow-indigo-500/15 flex items-center gap-2.5 text-sm sm:text-base">
+                        <i class="fa-brands fa-telegram text-lg"></i>
+                        <span>Обсудить задачу в Telegram</span>
+                    </a>
+                    <a href="#pricing" class="bg-[#E6E0D5] hover:bg-[#DCD4C6] text-zinc-900 font-semibold px-6 py-3.5 rounded-2xl transition text-sm sm:text-base">
+                        Посмотреть цены
+                    </a>
+                    <a href="#portfolio" class="text-zinc-700 hover:text-brandIndigo font-semibold px-3 py-2 text-sm transition flex items-center gap-1.5">
+                        <span>Примеры работ</span>
+                        <i class="fa-solid fa-arrow-down text-xs"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Правая карточка-визитка автора с правильными соцсетями -->
+            <div class="lg:col-span-4 bento-card rounded-3xl p-6 sm:p-7 flex flex-col justify-between bg-gradient-to-b from-[#F6F3EC] to-[#EDE8DF]">
+                <div>
+                    <!-- Шапка карточки с мини-превью -->
+                    <div class="relative rounded-2xl overflow-hidden h-40 mb-5 bg-zinc-900 border border-[#DDD6CA]">
+                        <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80" alt="Creative Visual" class="w-full h-full object-cover opacity-85" onerror="this.src='https://placehold.co/600x300/18181b/ffffff?text=SHELBY+STUDIO'">
+                        <div class="absolute inset-0 bg-gradient-to-t from-zinc-950/90 via-zinc-900/30 to-transparent flex items-end p-4">
+                            <div class="flex items-center gap-3">
+                                <div class="w-11 h-11 rounded-xl bg-brandIndigo text-white font-display font-extrabold text-lg flex items-center justify-center shadow-md border border-white/20">
+                                    S
+                                </div>
+                                <div>
+                                    <div class="text-white font-bold text-base leading-tight">Shelby</div>
+                                    <div class="text-indigo-200 text-xs">Креатор • Сайты • Маркетинг</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p class="text-xs sm:text-sm text-zinc-700 leading-relaxed mb-5">
+                        Делаю проекты с душой: сам собираю сайты, создаю ИИ-мультфильмы, провожу нейрофотосессии и настраиваю рекламу, которая приводит реальных клиентов.
+                    </p>
+                </div>
+
+                <!-- Ссылки на соцсети (Рабочий @she_lbyii и Личный @shelbi.smm) -->
+                <div class="space-y-2.5">
+                    <div class="text-[11px] font-bold uppercase tracking-wider text-zinc-500 px-1">Мои профили и связь:</div>
+                    
+                    <!-- РАБОЧИЙ ИНСТАГРАМ: @she_lbyii -->
+                    <a href="https://www.instagram.com/she_lbyii?psln=czIzYXF3Y25oNGNt" target="_blank" rel="noopener noreferrer" class="w-full p-3 rounded-2xl bg-[#E6E2F3] hover:bg-[#DDD7F0] border border-indigo-300/70 flex items-center justify-between transition group">
+                        <div class="flex items-center gap-3">
+                            <span class="w-8 h-8 rounded-xl bg-brandIndigo text-white flex items-center justify-center text-sm">
+                                <i class="fa-brands fa-instagram"></i>
+                            </span>
+                            <div>
+                                <span class="text-xs font-bold text-zinc-900 block">Рабочий Instagram</span>
+                                <span class="text-[11px] text-zinc-600">Портфолио, AI и SMM</span>
+                            </div>
+                        </div>
+                        <span class="text-xs font-bold text-brandIndigo group-hover:translate-x-0.5 transition">@she_lbyii →</span>
+                    </a>
+
+                    <!-- ЛИЧНЫЙ ИНСТАГРАМ (ЛАЙФ): @shelbi.smm -->
+                    <a href="https://www.instagram.com/shelbi.smm?mdxt=eWgyMGY4b3NpNGI3" target="_blank" rel="noopener noreferrer" class="w-full p-3 rounded-2xl bg-[#EFECE4] hover:bg-[#E5E0D5] border border-[#D8D0C3] flex items-center justify-between transition group">
+                        <div class="flex items-center gap-3">
+                            <span class="w-8 h-8 rounded-xl bg-amber-200/80 text-amber-800 flex items-center justify-center text-sm">
+                                <i class="fa-solid fa-sun"></i>
+                            </span>
+                            <div>
+                                <span class="text-xs font-bold text-zinc-900 block">Личный блог (Лайф)</span>
+                                <span class="text-[11px] text-zinc-600">Жизнь и закулисье</span>
+                            </div>
+                        </div>
+                        <span class="text-xs font-semibold text-zinc-700 group-hover:translate-x-0.5 transition">@shelbi.smm →</span>
+                    </a>
+
+                    <!-- TELEGRAM: @shelby_smm -->
+                    <a href="https://t.me/shelby_smm" target="_blank" rel="noopener noreferrer" class="w-full p-3 rounded-2xl bg-[#EFECE4] hover:bg-[#E1EBF0] border border-[#D8D0C3] flex items-center justify-between transition group">
+                        <div class="flex items-center gap-3">
+                            <span class="w-8 h-8 rounded-xl bg-sky-200/70 text-sky-700 flex items-center justify-center text-sm">
+                                <i class="fa-brands fa-telegram"></i>
+                            </span>
+                            <div>
+                                <span class="text-xs font-bold text-zinc-900 block">Личный Telegram</span>
+                                <span class="text-[11px] text-zinc-600">Быстрая связь для заказов</span>
+                            </div>
+                        </div>
+                        <span class="text-xs font-bold text-sky-700 group-hover:translate-x-0.5 transition">@shelby_smm →</span>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Портфолио: Реальные кейсы -->
+    <section id="portfolio" class="py-14 px-4 sm:px-6 max-w-6xl mx-auto">
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-4">
+            <div>
+                <span class="text-brandIndigo font-bold text-xs uppercase tracking-widest block mb-1.5">Портфолио</span>
+                <h2 class="font-display text-2xl sm:text-3xl md:text-4xl font-extrabold text-zinc-900">Мои реальные проекты и кейсы</h2>
+            </div>
+            <p class="text-zinc-600 text-sm max-w-sm">
+                Сайты, AI-мультфильмы и рекламный визуал, которые уже созданы и работают.
+            </p>
+        </div>
+
+        <div class="space-y-7">
+
+            <!-- КЕЙС 1: Сайт и упаковка салона Sugar & Wax -->
+            <div class="bento-card rounded-3xl overflow-hidden grid grid-cols-1 lg:grid-cols-12">
+                <!-- Визуальное превью кейса -->
+                <div class="lg:col-span-5 relative min-h-[260px] bg-gradient-to-br from-[#F3E5D8] via-[#EED6C4] to-[#E8C5D0] p-6 sm:p-8 flex flex-col justify-between overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=900&q=80" alt="Sugar & Wax Beauty" class="absolute inset-0 w-full h-full object-cover mix-blend-overlay opacity-35" onerror="this.style.display='none'">
+                    
+                    <div class="relative z-10 flex items-center justify-between">
+                        <span class="px-3 py-1 rounded-full bg-[#F6F3EC]/95 text-amber-950 font-bold text-xs shadow-sm">
+                            Сайт под ключ + Визуал
+                        </span>
+                        <span class="px-2.5 py-1 rounded-full bg-emerald-700 text-white text-[11px] font-bold">
+                            г. Сочи
+                        </span>
+                    </div>
+
+                    <div class="relative z-10 my-6 bg-[#F6F3EC]/90 backdrop-blur-md p-5 rounded-2xl border border-amber-900/15 shadow-sm">
+                        <div class="text-xs uppercase tracking-widest text-amber-900 font-bold mb-1">Студия депиляции</div>
+                        <div class="font-display text-2xl font-extrabold text-zinc-900">Sugar &amp; Wax (S&amp;W)</div>
+                        <div class="text-xs text-zinc-700 mt-1">«Приглашаем вас на гладкие процедуры» • ул. Гастелло 40, оф. 10</div>
+                    </div>
+
+                    <div class="relative z-10 text-xs font-semibold text-amber-950 flex items-center gap-2">
+                        <i class="fa-solid fa-globe"></i>
+                        <span>dragonheir2709-byte.github.io/sugar-wax-site</span>
+                    </div>
+                </div>
+
+                <!-- Описание кейса -->
+                <div class="lg:col-span-7 p-6 sm:p-8 md:p-10 flex flex-col justify-between space-y-5">
+                    <div class="space-y-3">
+                        <h3 class="font-display text-xl sm:text-2xl font-extrabold text-zinc-900">
+                            Разработка сайта и рекламной упаковки для бьюти-студии «Sugar &amp; Wax»
+                        </h3>
+                        <p class="text-zinc-700 text-sm sm:text-base leading-relaxed">
+                            Собрал с нуля нежный, удобный и адаптивный сайт для клиента в Сочи. Внутри: понятный прайс-лист на шугаринг и восковую депиляцию, выгодные комплексы, график работы, адрес и кнопки быстрой записи в один клик. Дополнительно подготовил карточки прайса, ретушь и промо-ролики для соцсетей.
+                        </p>
+                        <div class="flex flex-wrap gap-2 pt-2">
+                            <span class="px-3 py-1 rounded-xl bg-[#EAE5DC] text-zinc-800 text-xs font-semibold">Создание сайта</span>
+                            <span class="px-3 py-1 rounded-xl bg-[#EAE5DC] text-zinc-800 text-xs font-semibold">Дизайн прайс-листа</span>
+                            <span class="px-3 py-1 rounded-xl bg-[#EAE5DC] text-zinc-800 text-xs font-semibold">Бьюти-визуал</span>
+                            <span class="px-3 py-1 rounded-xl bg-[#EAE5DC] text-zinc-800 text-xs font-semibold">Адаптив под смартфоны</span>
+                        </div>
+                    </div>
+
+                    <div class="pt-3 flex flex-wrap items-center gap-3">
+                        <a href="https://dragonheir2709-byte.github.io/sugar-wax-site/" target="_blank" rel="noopener noreferrer" class="bg-zinc-900 hover:bg-brandIndigo text-white font-semibold text-sm px-5 py-3 rounded-xl transition inline-flex items-center gap-2 shadow-sm">
+                            <span>Открыть живой сайт клиента</span>
+                            <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+                        </a>
+                        <button onclick="selectServiceAndScroll('Создание сайта — от 10 000 ₽')" class="bg-[#E6E2F3] hover:bg-[#DAD3EE] text-brandIndigo font-semibold text-sm px-5 py-3 rounded-xl transition">
+                            Хочу такой же сайт
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- КЕЙС 2 и КЕЙС 3 в два столбца -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-7">
+                
+                <!-- КЕЙС 2: 3D-анимационный AI-мультфильм «Шёпот старого леса» -->
+                <div class="bento-card rounded-3xl overflow-hidden flex flex-col justify-between">
+                    <div>
+                        <div class="relative h-56 bg-zinc-900 p-6 flex flex-col justify-between overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=900&q=80" alt="Шёпот старого леса" class="absolute inset-0 w-full h-full object-cover opacity-55" onerror="this.style.display='none'">
+                            <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/40 to-transparent"></div>
+
+                            <div class="relative z-10 flex items-center justify-between">
+                                <span class="px-3 py-1 rounded-full bg-white/15 backdrop-blur-md text-amber-300 text-xs font-bold border border-white/15">
+                                    <i class="fa-solid fa-film mr-1"></i> 3D AI-Мультфильм
+                                </span>
+                                <span class="text-xs font-semibold text-indigo-200">Veo + Озвучка</span>
+                            </div>
+
+                            <div class="relative z-10">
+                                <div class="text-xs uppercase tracking-widest text-amber-300 font-bold">Авторская анимация</div>
+                                <h3 class="font-display text-2xl font-extrabold text-white mt-0.5">«Шёпот старого леса»</h3>
+                                <p class="text-xs text-zinc-300 mt-1">История рыжего лисёнка и светящегося звёздного существа</p>
+                            </div>
+                        </div>
+
+                        <div class="p-6 sm:p-7 space-y-3">
+                            <p class="text-zinc-700 text-sm leading-relaxed">
+                                Короткометражный 3D-мультфильм, полностью созданный через нейросети. Разработал сценарий, раскадровку по сценам, добился сохранения внешности персонажей в каждом кадре и наложил сказочную озвучку со звуками ночного леса.
+                            </p>
+                            <div class="flex flex-wrap gap-1.5 pt-1">
+                                <span class="px-2.5 py-1 rounded-lg bg-[#EAE5DC] text-zinc-800 text-xs font-medium">Генерация видео в Veo</span>
+                                <span class="px-2.5 py-1 rounded-lg bg-[#EAE5DC] text-zinc-800 text-xs font-medium">Единый персонаж</span>
+                                <span class="px-2.5 py-1 rounded-lg bg-[#EAE5DC] text-zinc-800 text-xs font-medium">Саунд-дизайн</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="px-6 pb-6 sm:px-7 sm:pb-7">
+                        <a href="https://www.instagram.com/she_lbyii?psln=czIzYXF3Y25oNGNt" target="_blank" rel="noopener noreferrer" class="w-full py-3 px-4 rounded-xl bg-[#EAE5DC] hover:bg-brandIndigo hover:text-white text-zinc-900 font-semibold text-xs sm:text-sm transition flex items-center justify-center gap-2">
+                            <i class="fa-brands fa-instagram"></i>
+                            <span>Смотреть работы в рабочем Instagram (@she_lbyii)</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- КЕЙС 3: Рекламные ИИ-ролики и промо для соцсетей -->
+                <div class="bento-card rounded-3xl overflow-hidden flex flex-col justify-between">
+                    <div>
+                        <div class="relative h-56 bg-indigo-950 p-6 flex flex-col justify-between overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=900&q=80" alt="AI Video Ads" class="absolute inset-0 w-full h-full object-cover opacity-45" onerror="this.style.display='none'">
+                            <div class="absolute inset-0 bg-gradient-to-t from-indigo-950 via-indigo-950/40 to-transparent"></div>
+
+                            <div class="relative z-10 flex items-center justify-between">
+                                <span class="px-3 py-1 rounded-full bg-white/15 backdrop-blur-md text-white text-xs font-bold border border-white/15">
+                                    <i class="fa-solid fa-wand-magic-sparkles text-amber-300 mr-1"></i> Промо &amp; Reels
+                                </span>
+                                <span class="text-xs font-semibold text-indigo-200">Krea AI + 3D</span>
+                            </div>
+
+                            <div class="relative z-10">
+                                <div class="text-xs uppercase tracking-widest text-indigo-300 font-bold">Коммерческий видео-контент</div>
+                                <h3 class="font-display text-2xl font-extrabold text-white mt-0.5">ИИ-видео для брендов и кафе</h3>
+                                <p class="text-xs text-zinc-300 mt-1">Оживающее 3D-меню и фэшн-концепты в городских локациях</p>
+                            </div>
+                        </div>
+
+                        <div class="p-6 sm:p-7 space-y-3">
+                            <p class="text-zinc-700 text-sm leading-relaxed">
+                                Создаю эффектные промо-ролики для Reels и Stories: аппетитная 3D-трансформация блюд для ресторанного меню, стильные фэшн-видео в метро и повышение чёткости (апскейл) через Krea AI. Отлично пробивают баннерную слепоту.
+                            </p>
+                            <div class="flex flex-wrap gap-1.5 pt-1">
+                                <span class="px-2.5 py-1 rounded-lg bg-[#EAE5DC] text-zinc-800 text-xs font-medium">3D-меню ресторанов</span>
+                                <span class="px-2.5 py-1 rounded-lg bg-[#EAE5DC] text-zinc-800 text-xs font-medium">Reels-креативы</span>
+                                <span class="px-2.5 py-1 rounded-lg bg-[#EAE5DC] text-zinc-800 text-xs font-medium">Апскейл качества</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="px-6 pb-6 sm:px-7 sm:pb-7">
+                        <a href="https://t.me/shelby_smm" target="_blank" rel="noopener noreferrer" class="w-full py-3 px-4 rounded-xl bg-[#EAE5DC] hover:bg-brandIndigo hover:text-white text-zinc-900 font-semibold text-xs sm:text-sm transition flex items-center justify-center gap-2">
+                            <i class="fa-brands fa-telegram"></i>
+                            <span>Заказать рекламный ИИ-ролик в ТГ</span>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Интерактивный блок: AI-фотографии и ретушь со слайдером ДО / ПОСЛЕ -->
+    <section id="retouch" class="py-14 px-4 sm:px-6 max-w-6xl mx-auto">
+        <div class="bento-card rounded-3xl p-6 sm:p-10 md:p-12">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+                
+                <!-- Текстовое описание слева -->
+                <div class="lg:col-span-6 space-y-5">
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#E6E2F3] text-brandIndigo text-xs font-bold">
+                        <i class="fa-solid fa-camera-retro"></i> AI-фотографии и ретушь — от 2 000 ₽
+                    </div>
+
+                    <h2 class="font-display text-2xl sm:text-3xl md:text-4xl font-extrabold text-zinc-900 leading-tight">
+                        Нейрофотосессии без студии и чистая ретушь снимков
+                    </h2>
+
+                    <p class="text-zinc-700 text-sm sm:text-base leading-relaxed">
+                        По вашим обычным фотографиям с телефона создаю студийные портреты в любом образе и интерьере, а также выполняю аккуратную ретушь кожи, света, замену фона и улучшение чёткости размытых кадров.
+                    </p>
+
+                    <div class="space-y-3 pt-1">
+                        <div class="flex items-start gap-3">
+                            <div class="w-6 h-6 rounded-full bg-emerald-200/80 text-emerald-800 flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">✓</div>
+                            <p class="text-sm text-zinc-700"><strong class="text-zinc-900">Экономия времени и бюджета:</strong> не нужно арендовать фотостудию, искать фотографа и собирать образы.</p>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="w-6 h-6 rounded-full bg-emerald-200/80 text-emerald-800 flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">✓</div>
+                            <p class="text-sm text-zinc-700"><strong class="text-zinc-900">Естественный результат:</strong> сохраняем живую текстуру кожи и ваши настоящие черты лица без эффекта «пластика».</p>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="w-6 h-6 rounded-full bg-emerald-200/80 text-emerald-800 flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">✓</div>
+                            <p class="text-sm text-zinc-700"><strong class="text-zinc-900">Для экспертов и товаров:</strong> идеально для аватарок, постов Instagram, карточек услуг и маркетплейсов.</p>
+                        </div>
+                    </div>
+
+                    <div class="pt-3">
+                        <button onclick="selectServiceAndScroll('AI-фотографии и ретушь — от 2 000 ₽')" class="bg-brandIndigo hover:bg-indigo-700 text-white font-semibold text-sm px-6 py-3.5 rounded-2xl transition shadow-sm inline-flex items-center gap-2">
+                            <span>Заказать нейрофото или ретушь</span>
+                            <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Интерактивный слайдер ДО / ПОСЛЕ справа -->
+                <div class="lg:col-span-6">
+                    <div class="bg-[#EAE5DC] p-3 sm:p-4 rounded-3xl border border-[#D5CEC2]">
+                        <div class="flex items-center justify-between text-xs font-bold text-zinc-600 px-2 pb-2.5">
+                            <span><i class="fa-solid fa-hand-pointer text-brandIndigo mr-1"></i> Потяните ползунок влево-вправо</span>
+                            <span class="text-brandIndigo">Демонстрация обработки</span>
+                        </div>
+
+                        <div id="baSlider" class="ba-container rounded-2xl aspect-[4/3] relative cursor-ew-resize">
+                            <!-- Слой ПОСЛЕ (Обработанное яркое студийное фото) -->
+                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=1000&q=85" alt="После ретуши и AI света" class="w-full h-full object-cover pro-photo-filter pointer-events-none">
+                            <span class="absolute top-3 right-3 z-10 px-3 py-1 rounded-full bg-brandIndigo/90 text-white text-[11px] font-bold shadow">
+                                ПОСЛЕ (Ретушь + AI-свет)
+                            </span>
+
+                            <!-- Слой ДО (Исходник с приглушенным светом) -->
+                            <div id="baOverlay" class="ba-overlay">
+                                <img id="baBeforeImg" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=1000&q=85" alt="До обработки" class="h-full object-cover max-w-none raw-photo-filter pointer-events-none">
+                                <span class="absolute top-3 left-3 z-10 px-3 py-1 rounded-full bg-zinc-900/80 text-white text-[11px] font-bold">
+                                    ДО (Исходник)
+                                </span>
+                            </div>
+
+                            <!-- Ползунок -->
+                            <div id="baHandle" class="ba-handle w-10 h-10 rounded-full bg-[#F6F3EC] text-zinc-900 shadow-xl border-2 border-brandIndigo flex items-center justify-center">
+                                <i class="fa-solid fa-arrows-left-right text-xs text-brandIndigo"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Блок «Стоимость услуг» (Строго по твоему прайс-листу) -->
+    <section id="pricing" class="py-14 px-4 sm:px-6 max-w-6xl mx-auto">
+        <div class="text-center max-w-2xl mx-auto mb-12">
+            <span class="text-brandIndigo font-bold text-xs uppercase tracking-widest block mb-2">Прайс-лист</span>
+            <h2 class="font-display text-2xl sm:text-3xl md:text-4xl font-extrabold text-zinc-900">Стоимость услуг</h2>
+            <p class="text-zinc-600 text-sm sm:text-base mt-2">
+                Прозрачные цены на продвижение, создание сайтов и работу с визуалом
+            </p>
+        </div>
+
+        <!-- Сетка из 6 карточек прайса -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+
+            <!-- 1. 2ГИС -->
+            <div class="bento-card rounded-3xl p-6 sm:p-7 flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="w-11 h-11 rounded-2xl bg-emerald-200/60 text-emerald-800 flex items-center justify-center text-lg font-bold">
+                            <i class="fa-solid fa-location-dot"></i>
+                        </span>
+                        <span class="text-xs font-bold uppercase tracking-wider text-zinc-500">Гео-сервисы</span>
+                    </div>
+                    <h3 class="font-display text-xl font-extrabold text-zinc-900 mb-2">2ГИС</h3>
+                    <p class="text-zinc-700 text-sm leading-relaxed mb-6">
+                        Полная упаковка и оформление карточки компании, заполнение прайса, фото, SEO-оптимизация для выхода в топ по вашему городу.
+                    </p>
+                </div>
+                <div class="pt-4 border-t border-[#E2DCD0] flex items-center justify-between">
+                    <div>
+                        <span class="text-[11px] text-zinc-500 block">Стоимость</span>
+                        <span class="font-display text-2xl font-extrabold text-zinc-900">от 3 500 ₽</span>
+                    </div>
+                    <button onclick="selectServiceAndScroll('2ГИС — от 3 500 ₽')" class="px-4 py-2.5 rounded-xl bg-[#EAE5DC] hover:bg-brandIndigo hover:text-white text-zinc-900 text-xs font-bold transition">
+                        Выбрать →
+                    </button>
+                </div>
+            </div>
+
+            <!-- 2. Яндекс Директ -->
+            <div class="bento-card rounded-3xl p-6 sm:p-7 flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="w-11 h-11 rounded-2xl bg-amber-200/60 text-amber-800 flex items-center justify-center text-lg font-bold">
+                            <i class="fa-solid fa-bullseye"></i>
+                        </span>
+                        <span class="text-xs font-bold uppercase tracking-wider text-zinc-500">Контекст</span>
+                    </div>
+                    <h3 class="font-display text-xl font-extrabold text-zinc-900 mb-2">Яндекс Директ</h3>
+                    <p class="text-zinc-700 text-sm leading-relaxed mb-6">
+                        Настройка результативной рекламы на Поиске и в РСЯ: сбор ключевых запросов, продающие объявления и привлечение целевых заявок.
+                    </p>
+                </div>
+                <div class="pt-4 border-t border-[#E2DCD0] flex items-center justify-between">
+                    <div>
+                        <span class="text-[11px] text-zinc-500 block">Стоимость</span>
+                        <span class="font-display text-2xl font-extrabold text-zinc-900">от 7 000 ₽</span>
+                    </div>
+                    <button onclick="selectServiceAndScroll('Яндекс Директ — от 7 000 ₽')" class="px-4 py-2.5 rounded-xl bg-[#EAE5DC] hover:bg-brandIndigo hover:text-white text-zinc-900 text-xs font-bold transition">
+                        Выбрать →
+                    </button>
+                </div>
+            </div>
+
+            <!-- 3. 2ГИС + Яндекс Директ (Выгодная связка) -->
+            <div class="bento-card rounded-3xl p-6 sm:p-7 flex flex-col justify-between border-brandIndigo/30 bg-gradient-to-b from-[#E6E2F3] to-[#F6F3EC]">
+                <div>
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="w-11 h-11 rounded-2xl bg-brandIndigo text-white flex items-center justify-center text-lg font-bold shadow-sm">
+                            <i class="fa-solid fa-bolt"></i>
+                        </span>
+                        <span class="px-2.5 py-1 rounded-full bg-indigo-200/80 text-brandIndigo text-[11px] font-extrabold">Выгодный тандем</span>
+                    </div>
+                    <h3 class="font-display text-xl font-extrabold text-zinc-900 mb-2">2ГИС + Яндекс Директ</h3>
+                    <p class="text-zinc-700 text-sm leading-relaxed mb-6">
+                        Двойной удар для привлечения клиентов: упаковка на картах 2ГИС + запуск горячего трафика из Яндекса со скидкой за пакет.
+                    </p>
+                </div>
+                <div class="pt-4 border-t border-indigo-200/80 flex items-center justify-between">
+                    <div>
+                        <span class="text-[11px] text-zinc-600 block">Стоимость пакета</span>
+                        <span class="font-display text-2xl font-extrabold text-brandIndigo">от 10 000 ₽</span>
+                    </div>
+                    <button onclick="selectServiceAndScroll('2ГИС + Яндекс Директ — от 10 000 ₽')" class="px-4 py-2.5 rounded-xl bg-brandIndigo hover:bg-indigo-700 text-white text-xs font-bold transition shadow-sm">
+                        Выбрать →
+                    </button>
+                </div>
+            </div>
+
+            <!-- 4. Комплексное продвижение -->
+            <div class="bento-card rounded-3xl p-6 sm:p-7 flex flex-col justify-between !bg-zinc-900 text-white !border-zinc-800">
+                <div>
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="w-11 h-11 rounded-2xl bg-white/10 text-amber-400 flex items-center justify-center text-lg font-bold">
+                            <i class="fa-solid fa-crown"></i>
+                        </span>
+                        <span class="px-2.5 py-1 rounded-full bg-amber-400/20 text-amber-300 text-[11px] font-bold">Всё включено</span>
+                    </div>
+                    <h3 class="font-display text-xl font-extrabold text-white mb-2">Комплексное продвижение</h3>
+                    <p class="text-zinc-300 text-sm leading-relaxed mb-6">
+                        Полное сопровождение вашего проекта под ключ: визуальная упаковка, контент, рекламный трафик, карты и работа над ростом заявок.
+                    </p>
+                </div>
+                <div class="pt-4 border-t border-white/10 flex items-center justify-between">
+                    <div>
+                        <span class="text-[11px] text-zinc-400 block">Стоимость</span>
+                        <span class="font-display text-2xl font-extrabold text-amber-400">от 15 000 ₽</span>
+                    </div>
+                    <button onclick="selectServiceAndScroll('Комплексное продвижение — от 15 000 ₽')" class="px-4 py-2.5 rounded-xl bg-[#F6F3EC] hover:bg-amber-400 text-zinc-900 text-xs font-bold transition">
+                        Выбрать →
+                    </button>
+                </div>
+            </div>
+
+            <!-- 5. Создание сайта -->
+            <div class="bento-card rounded-3xl p-6 sm:p-7 flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="w-11 h-11 rounded-2xl bg-sky-200/60 text-sky-800 flex items-center justify-center text-lg font-bold">
+                            <i class="fa-solid fa-laptop-code"></i>
+                        </span>
+                        <span class="text-xs font-bold uppercase tracking-wider text-zinc-500">Разработка</span>
+                    </div>
+                    <h3 class="font-display text-xl font-extrabold text-zinc-900 mb-2">Создание сайта</h3>
+                    <p class="text-zinc-700 text-sm leading-relaxed mb-6">
+                        Современный, быстрый и удобный сайт под ключ (как для салона Sugar &amp; Wax): дизайн, прайс-лист, адаптив под телефоны и привязка мессенджеров.
+                    </p>
+                </div>
+                <div class="pt-4 border-t border-[#E2DCD0] flex items-center justify-between">
+                    <div>
+                        <span class="text-[11px] text-zinc-500 block">Стоимость</span>
+                        <span class="font-display text-2xl font-extrabold text-zinc-900">от 10 000 ₽</span>
+                    </div>
+                    <button onclick="selectServiceAndScroll('Создание сайта — от 10 000 ₽')" class="px-4 py-2.5 rounded-xl bg-[#EAE5DC] hover:bg-brandIndigo hover:text-white text-zinc-900 text-xs font-bold transition">
+                        Выбрать →
+                    </button>
+                </div>
+            </div>
+
+            <!-- 6. AI-фотографии и ретушь -->
+            <div class="bento-card rounded-3xl p-6 sm:p-7 flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="w-11 h-11 rounded-2xl bg-rose-200/60 text-rose-800 flex items-center justify-center text-lg font-bold">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i>
+                        </span>
+                        <span class="text-xs font-bold uppercase tracking-wider text-zinc-500">Визуал &amp; AI</span>
+                    </div>
+                    <h3 class="font-display text-xl font-extrabold text-zinc-900 mb-2">AI-фотографии и ретушь</h3>
+                    <p class="text-zinc-700 text-sm leading-relaxed mb-6">
+                        Нейрофотосессии в любом образе без аренды студии, чистая ретушь портретов и бьюти-работ, замена фона и апскейл качества фото.
+                    </p>
+                </div>
+                <div class="pt-4 border-t border-[#E2DCD0] flex items-center justify-between">
+                    <div>
+                        <span class="text-[11px] text-zinc-500 block">Стоимость</span>
+                        <span class="font-display text-2xl font-extrabold text-zinc-900">от 2 000 ₽</span>
+                    </div>
+                    <button onclick="selectServiceAndScroll('AI-фотографии и ретушь — от 2 000 ₽')" class="px-4 py-2.5 rounded-xl bg-[#EAE5DC] hover:bg-brandIndigo hover:text-white text-zinc-900 text-xs font-bold transition">
+                        Выбрать →
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Обязательная сноска о точной стоимости -->
+        <div class="mt-6 bg-[#EFE6D5] border border-[#D8C9AE] rounded-2xl p-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
+            <div class="flex items-center gap-3">
+                <i class="fa-solid fa-circle-info text-amber-700 text-lg shrink-0"></i>
+                <span class="text-xs sm:text-sm font-semibold text-amber-950">
+                    Точная стоимость зависит от задачи, ниши и объёма работы.
+                </span>
+            </div>
+            <a href="https://t.me/shelby_smm" target="_blank" rel="noopener noreferrer" class="text-xs font-extrabold text-brandIndigo hover:underline shrink-0">
+                Узнать точный расчёт в Telegram →
+            </a>
+        </div>
+    </section>
+
+    <!-- Контакты и быстрая заявка в Telegram -->
+    <section id="contacts" class="py-14 px-4 sm:px-6 max-w-6xl mx-auto">
+        <div class="bg-zinc-900 text-white rounded-3xl p-6 sm:p-10 md:p-12 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center shadow-xl">
+            
+            <div class="lg:col-span-6 space-y-5">
+                <span class="px-3 py-1 rounded-full bg-white/10 text-amber-300 text-xs font-bold">
+                    Связь напрямую со мной
+                </span>
+                <h2 class="font-display text-2xl sm:text-3xl md:text-4xl font-extrabold leading-tight">
+                    Готовы обсудить ваш проект? Напишите мне!
+                </h2>
+                <p class="text-zinc-400 text-sm sm:text-base leading-relaxed">
+                    Выберите нужную услугу в форме справа или переходите сразу в Telegram <strong class="text-white">@shelby_smm</strong>. Расскажите в двух словах о своей задаче — я подскажу лучшее решение и сориентирую по срокам.
+                </p>
+
+                <!-- 3 карточки соцсетей (проверенные ссылки) -->
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
+                    <a href="https://t.me/shelby_smm" target="_blank" rel="noopener noreferrer" class="p-4 rounded-2xl bg-white/10 hover:bg-brandIndigo transition block">
+                        <i class="fa-brands fa-telegram text-sky-400 text-xl mb-2 block"></i>
+                        <div class="text-[11px] text-zinc-300">Telegram для связи</div>
+                        <div class="font-bold text-sm mt-0.5">@shelby_smm</div>
+                    </a>
+
+                    <a href="https://www.instagram.com/she_lbyii?psln=czIzYXF3Y25oNGNt" target="_blank" rel="noopener noreferrer" class="p-4 rounded-2xl bg-white/10 hover:bg-brandIndigo transition block">
+                        <i class="fa-brands fa-instagram text-indigo-400 text-xl mb-2 block"></i>
+                        <div class="text-[11px] text-zinc-300">Рабочий Instagram</div>
+                        <div class="font-bold text-sm mt-0.5">@she_lbyii</div>
+                    </a>
+
+                    <a href="https://www.instagram.com/shelbi.smm?mdxt=eWgyMGY4b3NpNGI3" target="_blank" rel="noopener noreferrer" class="p-4 rounded-2xl bg-white/10 hover:bg-brandIndigo transition block">
+                        <i class="fa-solid fa-heart text-amber-400 text-xl mb-2 block"></i>
+                        <div class="text-[11px] text-zinc-300">Личный Instagram</div>
+                        <div class="font-bold text-sm mt-0.5">@shelbi.smm</div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Интерактивная форма отправки в Telegram -->
+            <div class="lg:col-span-6 bg-zinc-800/90 border border-zinc-700/80 rounded-2xl p-6 sm:p-8 space-y-4">
+                <h3 class="font-display text-lg sm:text-xl font-bold text-white">Быстрая заявка в Telegram</h3>
+                
+                <div>
+                    <label class="block text-xs font-semibold text-zinc-400 mb-1.5">Выберите услугу</label>
+                    <select id="serviceSelect" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-brandIndigo">
+                        <option value="2ГИС — от 3 500 ₽">📍 2ГИС — от 3 500 ₽</option>
+                        <option value="Яндекс Директ — от 7 000 ₽">🎯 Яндекс Директ — от 7 000 ₽</option>
+                        <option value="2ГИС + Яндекс Директ — от 10 000 ₽">⚡ 2ГИС + Яндекс Директ — от 10 000 ₽</option>
+                        <option value="Комплексное продвижение — от 15 000 ₽">👑 Комплексное продвижение — от 15 000 ₽</option>
+                        <option value="Создание сайта — от 10 000 ₽">💻 Создание сайта — от 10 000 ₽</option>
+                        <option value="AI-фотографии и ретушь — от 2 000 ₽">✨ AI-фотографии и ретушь — от 2 000 ₽</option>
+                        <option value="ИИ-видео / 3D-анимация">🎬 ИИ-видео / 3D-анимация</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-zinc-400 mb-1.5">Пару слов о вашей нише или задаче (необязательно)</label>
+                    <textarea id="taskInput" rows="3" placeholder="Например: салон красоты, нужно оформить 2ГИС и сделать сайт..." class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-brandIndigo"></textarea>
+                </div>
+
+                <button type="button" onclick="sendToTelegram()" class="w-full bg-brandIndigo hover:bg-indigo-500 text-white font-bold py-3.5 rounded-xl text-sm sm:text-base transition shadow-lg shadow-indigo-600/25 flex items-center justify-center gap-2">
+                    <i class="fa-brands fa-telegram text-lg"></i>
+                    <span>Отправить в Telegram @shelby_smm</span>
+                </button>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Подвал сайта -->
+    <footer class="py-8 border-t border-[#DDD6CA] bg-[#E5DFD4]">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-zinc-600">
+            <div class="flex items-center gap-2.5">
+                <div class="w-7 h-7 rounded-lg bg-zinc-900 text-white font-display font-extrabold flex items-center justify-center text-xs">
+                    S
+                </div>
+                <span class="font-bold text-zinc-900">SHELBY STUDIO</span>
+                <span>© 2026 • Все права защищены</span>
+            </div>
+
+            <div class="flex flex-wrap items-center gap-5 font-semibold">
+                <a href="https://www.instagram.com/she_lbyii?psln=czIzYXF3Y25oNGNt" target="_blank" rel="noopener noreferrer" class="hover:text-brandIndigo">Рабочий IG: @she_lbyii</a>
+                <a href="https://www.instagram.com/shelbi.smm?mdxt=eWgyMGY4b3NpNGI3" target="_blank" rel="noopener noreferrer" class="hover:text-brandIndigo">Личный IG: @shelbi.smm</a>
+                <a href="https://t.me/shelby_smm" target="_blank" rel="noopener noreferrer" class="text-brandIndigo hover:underline">TG: @shelby_smm</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 1. Мобильное меню
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+            link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+        });
+
+        // 2. Выбор услуги из прайс-листа с плавным скроллом к форме
+        function selectServiceAndScroll(serviceName) {
+            const select = document.getElementById('serviceSelect');
+            for (let i = 0; i < select.options.length; i++) {
+                if (select.options[i].value === serviceName) {
+                    select.selectedIndex = i;
+                    break;
+                }
+            }
+            document.getElementById('contacts').scrollIntoView({ behavior: 'smooth' });
+            setTimeout(() => {
+                document.getElementById('taskInput').focus();
+            }, 600);
+        }
+
+        // 3. Отправка готового сообщения в Telegram @shelby_smm
+        function sendToTelegram() {
+            const service = document.getElementById('serviceSelect').value;
+            const task = document.getElementById('taskInput').value.trim();
+            let text = `Привет! Пишу с сайта SHELBY STUDIO.\nИнтересует услуга: ${service}`;
+            if (task) {
+                text += `\nЗадача: ${task}`;
+            }
+            const url = `https://t.me/shelby_smm?text=${encodeURIComponent(text)}`;
+            window.open(url, '_blank');
+        }
+
+        // 4. Интерактивный слайдер До / После
+        const baSlider = document.getElementById('baSlider');
+        const baOverlay = document.getElementById('baOverlay');
+        const baHandle = document.getElementById('baHandle');
+        const baBeforeImg = document.getElementById('baBeforeImg');
+        let isDragging = false;
+
+        function syncBeforeImageWidth() {
+            if (baSlider && baBeforeImg) {
+                baBeforeImg.style.width = baSlider.offsetWidth + 'px';
+            }
+        }
+
+        function moveSlider(clientX) {
+            const rect = baSlider.getBoundingClientRect();
+            let offsetX = clientX - rect.left;
+            if (offsetX < 0) offsetX = 0;
+            if (offsetX > rect.width) offsetX = rect.width;
+            const percentage = (offsetX / rect.width) * 100;
+            baOverlay.style.width = percentage + '%';
+            baHandle.style.left = percentage + '%';
+        }
+
+        baSlider.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            moveSlider(e.clientX);
+        });
+        window.addEventListener('mouseup', () => {
+            isDragging = false;
+        });
+        window.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            moveSlider(e.clientX);
+        });
+
+        baSlider.addEventListener('touchstart', (e) => {
+            isDragging = true;
+            moveSlider(e.touches[0].clientX);
+        }, { passive: true });
+        window.addEventListener('touchend', () => {
+            isDragging = false;
+        });
+        window.addEventListener('touchmove', (e) => {
+            if (!isDragging) return;
+            moveSlider(e.touches[0].clientX);
+        }, { passive: true });
+
+        window.addEventListener('resize', syncBeforeImageWidth);
+        window.onload = function () {
+            syncBeforeImageWidth();
+        };
+    </script>
+</body>
+</html>
